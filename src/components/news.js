@@ -27,9 +27,12 @@ export class news extends Component {
       // totalArticles:0
     };
   }
+
+
   async componentDidMount() {
     // console.log("cdm");
     let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&apiKey=e714d7e094ef4606a10969e6cca6c7e4&page=${this.state.page}&pageSize=${this.props.pageSize}&category=${this.props.category}`;
+    this.setState({loading:true});
     let data = await fetch(url);
     let parsedData = await data.json();
     console.log(parsedData.totalResults);
@@ -37,6 +40,7 @@ export class news extends Component {
       articles: parsedData.articles,
       totalResults: parsedData.totalResults,
       totalPage: Math.ceil(this.state.totalResults / this.props.pageSize),
+      loading:false
     });
   }
 
@@ -53,11 +57,11 @@ export class news extends Component {
     let parsedData = await data.json();
     // console.log(parsedData.articles)
     this.setState({
-      page: this.state.page - 1,
-      articles: parsedData.articles,
-      loading: false
-    });
-    console.log(this.state.page);
+        page: this.state.page - 1,
+        articles: parsedData.articles,
+        loading: false
+      });
+      console.log(this.state.page);
   };
   handleNext = async () => {
     
@@ -97,6 +101,9 @@ export class news extends Component {
                   }
                   newsUrl={element.url}
                   imgUrl={element.urlToImage}
+                  author = {element.author ? element.author : "Unknown"}
+                  date = {element.publishedAt}
+                  source = {element.source.name}
                 />
               </div>
             );
