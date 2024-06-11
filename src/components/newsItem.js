@@ -6,9 +6,16 @@ export class newsItem extends Component {
     return (
       <div className='my-3'>
         <div className="card" >
-        <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style={{zIndex:"1", left:"90%"}}>
-          {source}
-            </span>
+          <div style={{display:'flex',
+            justifyContent:'flex-end',
+            position:'absolute',
+            left:'50%'
+          }}>
+            <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style={{zIndex:"1", left:"90%"}}>
+              {source}
+                </span>
+
+          </div>
             <img src={!imgUrl?"https://t4.ftcdn.net/jpg/04/73/25/49/360_F_473254957_bxG9yf4ly7OBO5I0O5KABlN930GwaMQz.jpg":imgUrl} className="card-img-top" alt="..."/>
 
             <div className="card-body">

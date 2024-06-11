@@ -33,21 +33,25 @@ export class news extends Component {
 
   async componentDidMount() {
     // console.log("cdm");
-    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&apiKey=e714d7e094ef4606a10969e6cca6c7e4&page=${this.state.page}&pageSize=${this.props.pageSize}&category=${this.props.category}`;
+    this.props.setProgress(10)
+    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&apiKey=64e1ff92ac404cc087a075f8e1bd415a&page=${this.state.page}&pageSize=${this.props.pageSize}&category=${this.props.category}`;
     // this.setState({loading:true});
     let data = await fetch(url);
     let parsedData = await data.json();
+    this.props.setProgress(30)
     console.log(parsedData.totalResults);
+    this.props.setProgress(70)
     this.setState({
       articles: parsedData.articles,
       totalResults: parsedData.totalResults,
       totalPage: Math.ceil(this.state.totalResults / this.props.pageSize),
       // loading:false
-    });
+      });
+    this.props.setProgress(100)
   }
 
   // handlePrev = async () => {
-  //   let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&apiKey=e714d7e094ef4606a10969e6cca6c7e4&page=${
+  //   let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&apiKey=64e1ff92ac404cc087a075f8e1bd415a&page=${
   //     this.state.page - 1
   //   }&pageSize=${this.props.pageSize}&category=${this.props.category}`;
 
@@ -67,7 +71,7 @@ export class news extends Component {
   // };
   // handleNext = async () => {
     
-  //   let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&apiKey=e714d7e094ef4606a10969e6cca6c7e4&page=${
+  //   let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&apiKey=64e1ff92ac404cc087a075f8e1bd415a&page=${
   //     this.state.page + 1
   //   }&pageSize=${this.props.pageSize}&category=${this.props.category}`;
 
@@ -91,7 +95,7 @@ export class news extends Component {
       page: this.state.page +1
     })
 
-    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&apiKey=e714d7e094ef4606a10969e6cca6c7e4&page=${this.state.page + 1}&pageSize=${this.props.pageSize}&category=${this.props.category}`;
+    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&apiKey=64e1ff92ac404cc087a075f8e1bd415a&page=${this.state.page + 1}&pageSize=${this.props.pageSize}&category=${this.props.category}`;
     // this.setState({loading:true});
     let data = await fetch(url);
     let parsedData = await data.json();
@@ -108,9 +112,9 @@ export class news extends Component {
   render() {
     // console.log("render");
     return (
-      <div className="container my-3">
+      <>
         <h2 className="text-center" style={{margin:'4vh 0'}}>Top Headlines - {this.props.category.charAt(0).toUpperCase() + this.props.category.slice(1)}</h2>
-        {/* {this.state.loading && <Spinner />} Shows spinner while loading */}
+        {/* {this.state.loading && <Spinner />}  */}
 
         <InfiniteScroll
           dataLength={this.state.articles.length}
@@ -118,29 +122,32 @@ export class news extends Component {
           hasMore={this.state.articles.length !== this.state.totalResults}
           loader={<Spinner/>}
         >
-          <div className="row">
-          {/* !this.state.loading && this.state.articles.map((element) Use this to hide current articles while loading new  */}
-            {this.state.articles.map((element) => {
-              return (
-                <div key={element.url} className="col-md-4">
-                  <NewsItem
-                    title={element.title ? element.title.slice(0, 45) : ""}
-                    description={
-                      element.description ? element.description.slice(0, 88) : ""
-                    }
-                    newsUrl={element.url}
-                    imgUrl={element.urlToImage}
-                    author = {element.author ? element.author : "Unknown"}
-                    date = {element.publishedAt}
-                    source = {element.source.name}
-                  />
-                </div>
-              );
-            })}
+          <div className="container">
+
+            <div className="row">
+            {/* !this.state.loading && this.state.articles.map((element) Use this to hide current articles while loading new  */}
+              {this.state.articles.map((element) => {
+                return (
+                  <div key={element.url} className="col-md-4">
+                    <NewsItem
+                      title={element.title ? element.title.slice(0, 45) : ""}
+                      description={
+                        element.description ? element.description.slice(0, 88) : ""
+                      }
+                      newsUrl={element.url}
+                      imgUrl={element.urlToImage}
+                      author = {element.author ? element.author : "Unknown"}
+                      date = {element.publishedAt}
+                      source = {element.source.name}
+                    />
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </InfiniteScroll>
 
-      </div>
+      </>
     );
   }
 }
