@@ -34,7 +34,7 @@ export class news extends Component {
   async componentDidMount() {
     // console.log("cdm");
     this.props.setProgress(10)
-    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&apiKey=64e1ff92ac404cc087a075f8e1bd415a&page=${this.state.page}&pageSize=${this.props.pageSize}&category=${this.props.category}`;
+    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&apiKey=${this.props.apiKey}&page=${this.state.page}&pageSize=${this.props.pageSize}&category=${this.props.category}`;
     // this.setState({loading:true});
     let data = await fetch(url);
     let parsedData = await data.json();
@@ -51,7 +51,7 @@ export class news extends Component {
   }
 
   // handlePrev = async () => {
-  //   let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&apiKey=64e1ff92ac404cc087a075f8e1bd415a&page=${
+  //   let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&apiKey=${this.props.apiKey}&page=${
   //     this.state.page - 1
   //   }&pageSize=${this.props.pageSize}&category=${this.props.category}`;
 
@@ -71,7 +71,7 @@ export class news extends Component {
   // };
   // handleNext = async () => {
     
-  //   let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&apiKey=64e1ff92ac404cc087a075f8e1bd415a&page=${
+  //   let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&apiKey=${this.props.apiKey}&page=${
   //     this.state.page + 1
   //   }&pageSize=${this.props.pageSize}&category=${this.props.category}`;
 
@@ -95,7 +95,7 @@ export class news extends Component {
       page: this.state.page +1
     })
 
-    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&apiKey=64e1ff92ac404cc087a075f8e1bd415a&page=${this.state.page + 1}&pageSize=${this.props.pageSize}&category=${this.props.category}`;
+    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&apiKey=${this.props.apiKey}&page=${this.state.page + 1}&pageSize=${this.props.pageSize}&category=${this.props.category}`;
     // this.setState({loading:true});
     let data = await fetch(url);
     let parsedData = await data.json();
