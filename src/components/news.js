@@ -1,4 +1,4 @@
-import React, {useState,useEffect,useRef} from "react";
+import React, {useState,useEffect} from "react";
 import NewsItem from "./newsItem";
 import Spinner from "./spinner";
 import PropTypes from 'prop-types'
@@ -16,7 +16,7 @@ const News = (props)=> {
 
 
   const updtNews = async()=>{
-    props.ref.current.staticStart(10)
+    props.setProgress(30)
     let url = `https://newsapi.org/v2/top-headlines?country=${props.country}&apiKey=${props.apiKey}&page=${page}&pageSize=${props.pageSize}&category=${props.category}`;
     // this.setState({loading:true});
     let data = await fetch(url);
@@ -26,8 +26,9 @@ const News = (props)=> {
     // props.setProgress(70)
     setArticles(parsedData.articles);
     setTotalResults(parsedData.totalResults);
-
-    props.ref.current.complete()
+    props.setProgress(1000)
+    
+    // props.ref.current.complete()
   }
 
   useEffect(()=>{
