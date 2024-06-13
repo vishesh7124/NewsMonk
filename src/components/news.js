@@ -113,7 +113,7 @@ export class news extends Component {
     // console.log("render");
     return (
       <>
-        <h2 className="text-center" style={{margin:'4vh 0'}}>Top Headlines - {this.props.category.charAt(0).toUpperCase() + this.props.category.slice(1)}</h2>
+        <h2 className="text-center" style={{margin:'4vh 0',marginTop:'11vh'}}>Top Headlines - {this.props.category.charAt(0).toUpperCase() + this.props.category.slice(1)}</h2>
         {/* {this.state.loading && <Spinner />}  */}
 
         <InfiniteScroll
